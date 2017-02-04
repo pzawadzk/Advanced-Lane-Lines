@@ -7,9 +7,9 @@
 [image4]: ./output_images/thresholded_binary.jpg "Thresholded"
 [image5]: ./output_images/straight_lines.jpg "Warp Example"
 [image6]: ./output_images/warped_straight_lines.jpg "Warp Example"
-[image7]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image8]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
+[image7]: ./output_images/poly_fit.jpg "Fit Visual"
+[image8]: ./output_images/example_output.jpg "Output"
+[video1]: ./project_video_with_lane.mp4 "Video"
 
 # Advanced Lane Finding Project
 
@@ -70,7 +70,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
-![alt text][image5]
+![alt text][image7]
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -80,7 +80,7 @@ I did this in lines # through # in my code in `my_other_file.py`
 
 I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
 
-![alt text][image6]
+![alt text][image8]
 
 ---
 
