@@ -11,7 +11,7 @@
 [image8]: ./output_images/example_output.jpg "Output"
 [video1]: ./project_video_with_lane.mp4 "Video"
 
-# Advanced Lane Finding Project
+## Advanced Lane Finding Project
 
 ####1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
