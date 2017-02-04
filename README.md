@@ -5,9 +5,10 @@
 [image2]: ./output_images/undistorted_image.jpg "Undistorted"
 [image3]: ./output_images/undistorted_road_image.jpg "Undistorted Road"
 [image4]: ./output_images/thresholded_binary.jpg "Thresholded"
-[image5]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image6]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image7]: ./examples/example_output.jpg "Output"
+[image5]: ./output_images/straight_lines.jpg "Warp Example"
+[image6]: ./output_images/warped_straight_lines.jpg "Warp Example"
+[image7]: ./examples/color_fit_lines.jpg "Fit Visual"
+[image8]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
 # Advanced Lane Finding Project
@@ -61,7 +62,9 @@ This resulted in the following source and destination points:
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+![alt text][image5]
+
+![alt text][image6]
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
