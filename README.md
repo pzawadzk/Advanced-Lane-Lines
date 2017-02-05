@@ -58,31 +58,20 @@ I verified that my perspective transform was working as expected by drawing the 
 ![alt text][image6]
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+This step is implemented in the file `lane.py` that defines two classes: `class Line()` and 'class Lane(Line)'.  
+The class called `Line` implements the methods to generate line data points, fit the 2nd order polynomial  and calculate line curvature and position with respect to image center (i.e. car center). 
+The class `Lane` inherits after left and right `Line` and implements lane detection pipeline.
 
-Python class called `Line` implements 
-To generated lane-line pixels I scan the image in the y-direction using a rectangular window of fixed size. The window is center highest intensity along x-axis is calucalted 
-using 
-position of the window is centered initial position of the     
+To generated lane-line pixels I scan the image in the y-direction using a rectangular window '[y_start:y_end, x_start:x_end]`. The window position along x-axis is 
+is updated very time the window shifted in y-direction:
 ```
-            histogram = np.sum(image[y_start:y_end, :], axis=0)
-            # Calculate line center using weighted average
-            try:
-                center = int(np.average(index, weights=histogram[index]))
-            except:
-                # Use previous value
-                pass
-            # Update scanning window
-            x_start = center - peak_width
-            x_end = center + peak_width
-            # Select indexes of data points contained in the scare window
-            idx = Xy_idx[
-                (X >= x_start) & (
-                    X < x_end) & (
-                    Y >= y_start) & (
-                    Y < y_end)]
-                center = int(np.average(index, weights=histogram[index]))
+histogram = np.sum(image[y_start:y_end, :], axis=0)
+center = int(np.average(index, weights=histogram[index]))
+x_start = center - peak_width
+x_end = center + peak_width
 ```
 
+The idenified data 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
 ![alt text][image7]

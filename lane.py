@@ -105,6 +105,7 @@ class Line():
             try:
                 center = int(np.average(index, weights=histogram[index]))
             except:
+                # Use previous value
                 pass
             # Update scanning window
             x_start = center - peak_width
