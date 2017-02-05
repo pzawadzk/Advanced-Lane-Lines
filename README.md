@@ -42,7 +42,7 @@ Here is an example output (see also 7th cell of the IPyhton notebook):
 
 ####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warp_image()`, which appears in lines 28 through 33 in the file `warp.py. The function another function called `get_transform_matrix` that hardcodes the source and destination points:
+The code for my perspective transform includes a function called `warp_image()`, which appears in lines 28 through 33 in the file `warp.py. The function `cv2.warpPerspective` and another function called `get\_transform\_matrix` that hardcodes the source and destination points:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
@@ -51,7 +51,6 @@ The code for my perspective transform includes a function called `warp_image()`,
 | 734, 480     | 950, 700      |
 | 554, 480      | 350, 200        |
 
-
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image as implemented in the IPython notebook (code cell 8 through 12).
 
 ![alt text][image5]
@@ -59,6 +58,30 @@ I verified that my perspective transform was working as expected by drawing the 
 ![alt text][image6]
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+
+Python class called `Line` implements 
+To generated lane-line pixels I scan the image in the y-direction using a rectangular window of fixed size. The window is center highest intensity along x-axis is calucalted 
+using 
+position of the window is centered initial position of the     
+```
+            histogram = np.sum(image[y_start:y_end, :], axis=0)
+            # Calculate line center using weighted average
+            try:
+                center = int(np.average(index, weights=histogram[index]))
+            except:
+                # Use previous value
+                pass
+            # Update scanning window
+            x_start = center - peak_width
+            x_end = center + peak_width
+            # Select indexes of data points contained in the scare window
+            idx = Xy_idx[
+                (X >= x_start) & (
+                    X < x_end) & (
+                    Y >= y_start) & (
+                    Y < y_end)]
+                center = int(np.average(index, weights=histogram[index]))
+```
 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
