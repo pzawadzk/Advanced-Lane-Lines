@@ -61,7 +61,7 @@ I verified that my perspective transform was working as expected by drawing the 
 This step is implemented in the file `lane.py` that defines two classes: `class Line()` and `class Lane(Line)`.  
 The class `Line` implements the methods to generate line data points, fit the 2nd order polynomial  and also to calculate line curvature and position with respect to image center (i.e. car center).  The class `Lane` inherits after left and right `Line` and implements lane detection pipeline.
 
-To generated lane-line pixels I scan the image in the y-direction using a rectangular window '[y_start:y_end, x_start:x_end]`. I update the window position along x-axis
+To generated lane-line pixels I scan the image in the y-direction using a rectangular window `[y_start:y_end, x_start:x_end]` and update the window position along x-axis
 every time the window is shifted in y-direction:
 ```
 class Line():
@@ -75,10 +75,19 @@ class Line():
         x_end = center + peak_width
     ...
 ```
+Indexes of points belonging to the rectangular window are appended to list called `relevant\_idx`  and are then used to select all non-zero points.
+```
+    def gen_fit_data(self, image, peak_width=50, nbins=10):
+        ...
+        Y, X = np.nonzero(image)
+        ...
+        # y-direction scan
+        ...
+        return X[relevant_idx], Y[relevant_idx]
+```
 
-Once data points are idenifted I use 
-The idenified data 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+Once data points are identified I call the function called `fit\_line` to fit  a 2nd order polynomial.
+Code cells 13 thought 16 of the IPython notebook illustrate the final results. 
 
 ![alt text][image7]
 
