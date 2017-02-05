@@ -6,11 +6,11 @@ def detect_line(image):
     """Applies S-channel threshold and Sobel absolute x-direction gradient threshold.
     Returns binary image.
     """
-    s_binary = hls_threshold(image, channel=2, thresh=(160, 255))
+    s_channel = hls_threshold(image, channel=2, thresh=(160, 255))
     gradx = abs_sobel_thresh(image, orient='x', thresh_min=30, thresh_max=200)
 
-    combined = np.zeros_like(s_binary)
-    combined[(gradx == 1) | (s_binary == 1)] = 1
+    combined = np.zeros_like(s_channel)
+    combined[(gradx == 1) | (s_channel == 1)] = 1
     return combined
 
 

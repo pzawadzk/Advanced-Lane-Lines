@@ -3,7 +3,8 @@
 
 [image1]: ./output_images/original_image.jpg "Original"
 [image2]: ./output_images/undistorted_image.jpg "Undistorted"
-[image3]: ./output_images/undistorted_road_image.jpg "Undistorted Road"
+[image3a]: ./output_images/undistorted_road_image.jpg "Undistorted Road"
+[image3b]: ./output_images/original_road_image.jpg "Original Road"
 [image4]: ./output_images/thresholded_binary.jpg "Thresholded"
 [image5]: ./output_images/straight_lines.jpg "Warp Example"
 [image6]: ./output_images/warped_straight_lines.jpg "Warp Example"
@@ -27,10 +28,16 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ####1. Provide an example of a distortion-corrected image.
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image3]
+![alt text][image3a]
 
 ####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+I used a combination of color and gradient thresholds to generate a binary image. The code for this step by the function called `detect_line` implemented in the file `line.py`.
+This function applies two thresholds based on:
+1. The saturation channel threshold based the image transformed to HLS space (hue, lightness, and saturation);
+2  The absolute value of the Sobel x-direction gradient threshold.
+Ones in the binary image correspond to situations where either of the thresholds applies.
+
+The seventh cell of the ipyhton notebook demonstrates this step and here is an example of my output:
 
 ![alt text][image4]
 
