@@ -58,19 +58,25 @@ I verified that my perspective transform was working as expected by drawing the 
 ![alt text][image6]
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
-This step is implemented in the file `lane.py` that defines two classes: `class Line()` and 'class Lane(Line)'.  
-The class called `Line` implements the methods to generate line data points, fit the 2nd order polynomial  and calculate line curvature and position with respect to image center (i.e. car center). 
-The class `Lane` inherits after left and right `Line` and implements lane detection pipeline.
+This step is implemented in the file `lane.py` that defines two classes: `class Line()` and `class Lane(Line)`.  
+The class `Line` implements the methods to generate line data points, fit the 2nd order polynomial  and also to calculate line curvature and position with respect to image center (i.e. car center).  The class `Lane` inherits after left and right `Line` and implements lane detection pipeline.
 
-To generated lane-line pixels I scan the image in the y-direction using a rectangular window '[y_start:y_end, x_start:x_end]`. The window position along x-axis is 
-is updated very time the window shifted in y-direction:
+To generated lane-line pixels I scan the image in the y-direction using a rectangular window '[y_start:y_end, x_start:x_end]`. I update the window position along x-axis
+every time the window is shifted in y-direction:
 ```
-histogram = np.sum(image[y_start:y_end, :], axis=0)
-center = int(np.average(index, weights=histogram[index]))
-x_start = center - peak_width
-x_end = center + peak_width
+class Line():
+    ...
+    def gen_fit_data(self, image, peak_width=50, nbins=10):
+    ...
+    for nbin in range(nbins):
+        histogram = np.sum(image[y_start:y_end, :], axis=0)
+        center = int(np.average(index, weights=histogram[index]))
+        x_start = center - peak_width
+        x_end = center + peak_width
+    ...
 ```
 
+Once data points are idenifted I use 
 The idenified data 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
