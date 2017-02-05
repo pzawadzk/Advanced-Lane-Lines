@@ -31,13 +31,12 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 ![alt text][image3a]
 
 ####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-I used a combination of color and gradient thresholds to generate a binary image. The code for this step by the function called `detect_line` implemented in the file `line.py`.
-This function applies two thresholds based on:
-1. The saturation channel threshold based the image transformed to HLS space (hue, lightness, and saturation);
-2  The absolute value of the Sobel x-direction gradient threshold.
-Ones in the binary image correspond to situations where either of the thresholds applies.
+I used a combination of color and gradient thresholds to generate a binary image. The color threshold  is based on the saturation channel of the image transformed to HLS space (hue, lightness, and saturation); the gradient threshold is based on the absolute value of the Sobel x-direction gradient.  These two thresholds are implemented in the file `line.py` (lines 17-50 and 94-106).   
 
-The seventh cell of the ipyhton notebook demonstrates this step and here is an example of my output:
+I apply the thresholds in the function called `detect_line` in the file `line.py`.
+This function returns a binary image where ones correspond to situations where either of the thresholds applies.
+
+The seventh cell of the Ipyhton notebook demonstrates this step and here is an example output:
 
 ![alt text][image4]
 
