@@ -123,7 +123,8 @@ Here is an example of my result on a test image (the code cell number 17 of the 
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video file](./project_video.mp4)
+
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/vg3sN9wN-N0/0.jpg)](http://www.youtube.com/watch?v=vg3sN9wN-N0 "Video Title")
 
 ---
@@ -132,5 +133,21 @@ Here's a [link to my video result](./project_video.mp4)
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+I encountered couple of challenges in the project. Here are the most important three:  
 
+1. Generation of binary lane-line image. I used a try and error approach to test methods to create thresholded binary image. Although, the resulting lane-line detection works well, the whole process was somewhat time consuming. An automated optimization process would allow for a more exhaustive search.
+
+2. Identification of lane-line pixels in the binary image. For some images my algorithm was picking up a road edge rather than a lane-line. 
+I solved this issues by masking left and right sides of images.  A better approach would be to identify all the lanes and then pick the lines that are left and right of car.
+In that we would keep the information about all the lanes. 
+
+3. Stability of lane detection. To improve stability of lane detection I used a running average over the last 10 image frames. In situations where the binary image had lot of noise or simply line pixels were not present, the resulting fit parameters were wrong and skewed the average. To solve this issue I update the average only when the fit parameters are not unreasonably different from the current average.
+
+Here are a few potential issues with the implemented line detection:
+
+1. The current pipeline was tested only on one type of road conditions.  
+It is possible that the pipeline will fail under rainy, dark or other conditions.  While using saturation channel which be more illumination independent should improve generalization, more  testing and a more systematic optimization approach to build a binary image could help. 
+
+2. Lane detection may not work properly when lines split or merge e.g. cross-sections,  acceleration or deceleration lanes etc. Here identification of multiple lines and sanity checks based on known ranges of lane parameters could help.
+
+3. Lane changing may also confuse the algorithm.
