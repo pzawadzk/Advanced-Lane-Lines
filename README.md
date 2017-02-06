@@ -93,9 +93,20 @@ Code cells 13 thought 16 of the IPython notebook illustrate the final results.
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I implemented this step in function called `calcualte_curvature_and_position` (lines 135 through 160 in `lane.py`).
+I implemented this step in function called `calcualte_curvature_and_position_`  (lines 135 through 160 in `lane.py`). Both curvature and car position with respect to center are calculated in meter space.
+
+To calculate line curvature use the following equation: 
 <code>
-[1+(2Ay + B)<sup>2</sup>]<sup>3/2</sup> / |2A|
+<i>
+r = [1+(2Ay + B)<sup>2</sup>]<sup>3/2</sup> / |2A|
+</i>
+</code>
+where <code><i>A, B, C</i></code> are parameters of the 2nd oder polynomial fit and <code><i>y</i><code> represents the bottom of the image.
+
+<code>
+<i>
+p = A*y<sup>2</sup> + By + C - L<sub>x</sub>/2
+</i>
 </code>
 
 ```
