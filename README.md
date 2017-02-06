@@ -98,19 +98,19 @@ I implemented this step in function called `calcualte_curvature_and_position_`  
 To calculate line curvature use the following equation: 
 <code>
 <i>
-r(l) = [1+(2A(l)y + B(l))<sup>2</sup>]<sup>3/2</sup> / |2A(l)|
+R(l) = [1+(2A(l)y + B(l))<sup>2</sup>]<sup>3/2</sup> / |2A(l)|
 </i>
 </code>
 where <code><i>A, B, C</i></code> are parameters of the 2nd oder polynomial fit and <code><i>y</i></code> represents the bottom of the image.
-The lane curvature is then the average value of the left and right lane-lines curvatures: <code> <i> r = [r(l)+r(r)]/2 </i> </code> (`lane.py` code lines 289-280).
+The lane curvature is then the average value of the left and right lane-lines curvatures: <code> <i> R = [R(l)+R(r)]/2 </i> </code> (`lane.py` code lines 289-280).
 
 To calculate the vehicle position I first calculate position of left and right lane at the bottom of the image with respect to image center (`M`):
 <code>
 <i>
-p(l) = A(l)*y<sup>2</sup> + B(l)y + C(l) - M
+P(l) = A(l)y<sup>2</sup> + B(l)y + C(l) - M
 </i>
 </code>
-The vehicle position with respect to lane center is then the average value of the left and right lane-lines positions: <code> <i> p = [p(l)+p(r)]/2 </i> </code> (`lane.py` code lines 292-283).
+The vehicle position with respect to lane center is then the average value of the left and right lane-lines positions: <code> <i> P = [P(l)+P(r)]/2 </i> </code> (`lane.py` code lines 292-283).
 
 ####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 Here is an example of my result on a test image (the code cell number 17 of the IPython notebook).
@@ -124,7 +124,7 @@ Here is an example of my result on a test image (the code cell number 17 of the 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 Here's a [link to my video result](./project_video.mp4)
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Video Title")
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/vg3sN9wN-N0/0.jpg)](http://www.youtube.com/watch?v=vg3sN9wN-N0 "Video Title")
 
 ---
 
