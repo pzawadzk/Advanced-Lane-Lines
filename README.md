@@ -93,11 +93,22 @@ Code cells 13 thought 16 of the IPython notebook illustrate the final results.
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+I implemented this step in function called `calcualte_curvature_and_position` (lines 135 through 160 in `lane.py`).
+<code>
+[1+(2Ay + B)<sup>2</sup>]<sup>3/2</sup> / |2A|
+</code>
+
+```
+    def calcualte_curvature_and_position(self, coord, imsize):
+        ...
+```
+$$
+a = b C 
+$$
 
 ####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
-
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  
+Here is an example of my result on a test image (the code cell number 17 of the IPython notebook).
 
 ![alt text][image8]
 
