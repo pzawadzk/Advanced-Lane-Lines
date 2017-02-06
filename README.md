@@ -27,13 +27,13 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 ###Pipeline (single images)
 
 ####1. Provide an example of a distortion-corrected image.
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
+To demonstrate this step, I apply the distortion correction to one of the test images. Here is the resulting undistorted image:
 ![alt text][image3a]
 
 ####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-I used a combination of color and gradient thresholds to generate a binary image. The color threshold  is based on the saturation channel of the image transformed to HLS space (hue, lightness, and saturation); the gradient threshold is based on the absolute value of the Sobel x-direction gradient.  These two thresholds are implemented in the file `line.py` (lines 17-50 and 94-106).   
+I used a combination of color and gradient thresholds to generate a binary image. The color threshold  uses the saturation channel of an image in HLS space (hue, lightness, and saturation); the gradient threshold is based on the absolute value of the Sobel x-direction gradient.  These two thresholds are implemented in the file `line.py` (lines 17-50 and 94-106, respectively).   
 
-I apply the thresholds in the function called `detect_line` implemented in the file `line.py`.
+I apply the thresholds in the function called `detect_line` implemented in `line.py`.
 This function returns a binary image where ones correspond to situations where either of the thresholds applies.
 
 Here is an example output (see also 7th cell of the IPyhton notebook):
@@ -42,7 +42,7 @@ Here is an example output (see also 7th cell of the IPyhton notebook):
 
 ####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warp_image()`, which appears in lines 28 through 33 in the file `warp.py. The function `cv2.warpPerspective` and another function called `get\_transform\_matrix` that hardcodes the source and destination points:
+The code for my perspective transform includes a function called `warp_image()`, which appears in lines 28 through 33 in the file `warp.py`. This function calls `cv2.warpPerspective` and another function called `get_transform_matrix` that hardcodes the source and destination points:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
@@ -51,7 +51,7 @@ The code for my perspective transform includes a function called `warp_image()`,
 | 734, 480     | 950, 700      |
 | 554, 480      | 350, 200        |
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image as implemented in the IPython notebook (code cell 8 through 12).
+I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image (the IPython notebook, code cell 8 through 12).
 
 ![alt text][image5]
 
@@ -59,9 +59,9 @@ I verified that my perspective transform was working as expected by drawing the 
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 This step is implemented in the file `lane.py` that defines two classes: `class Line()` and `class Lane(Line)`.  
-The class `Line` implements the methods to generate line data points, fit the 2nd order polynomial  and also to calculate line curvature and position with respect to image center (i.e. car center).  The class `Lane` inherits after left and right `Line` and implements lane detection pipeline.
+The class `Line` implements methods to generate line data points, fit a 2nd order polynomial  and also to calculate line curvature and position with respect to image center (i.e. car center).  The class `Lane` inherits after left and right `Line` object and implements lane detection pipeline.
 
-To generated lane-line pixels I scan the image in the y-direction using a rectangular window `[y_start:y_end, x_start:x_end]` and update the window position along x-axis
+To generated lane-line pixels I scan images in y-direction using a rectangular window `[y_start:y_end, x_start:x_end]` and update the window position along x-axis
 every time the window is shifted in y-direction:
 ```
 class Line():
@@ -86,14 +86,14 @@ Indexes of points belonging to the rectangular window are appended to list calle
         return X[relevant_idx], Y[relevant_idx]
 ```
 
-Once data points are identified I call the function called `fit\_line` to fit  a 2nd order polynomial.
+Once data points are identified I call the function `fit\_line` to fit a 2nd order polynomial.
 Code cells 13 thought 16 of the IPython notebook illustrate the final results. 
 
 ![alt text][image7]
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I implemented this step in function called `calcualte_curvature_and_position_`  (lines 135 through 160 in `lane.py`). Both curvature and vehicle position calculated in the meter space.
+I implemented this step in the function called `calcualte_curvature_and_position_`  (lines 135 through 160 in `lane.py`). Both curvatures and vehicle positions are calculated in meter space.
 
 To calculate line curvature use the following equation: 
 <code>
@@ -102,15 +102,15 @@ R(l) = [1+(2A(l)y + B(l))<sup>2</sup>]<sup>3/2</sup> / |2A(l)|
 </i>
 </code>
 where <code><i>A, B, C</i></code> are parameters of the 2nd oder polynomial fit and <code><i>y</i></code> represents the bottom of the image.
-The lane curvature is then the average value of the left and right lane-lines curvatures: <code> <i> R = [R(l)+R(r)]/2 </i> </code> (`lane.py` code lines 289-280).
+The lane curvature is then the average value of the left and right lines curvatures: <code> <i> R = [R(l)+R(r)]/2 </i> </code> (`lane.py` code lines 289-280).
 
-To calculate the vehicle position I first calculate position of left and right lane at the bottom of the image with respect to image center (`M`):
+To calculate vehicle positions I first calculate positions of left and right lanes at the bottom of the image with respect to image center (`M`):
 <code>
 <i>
 P(l) = A(l)y<sup>2</sup> + B(l)y + C(l) - M
 </i>
 </code>
-The vehicle position with respect to lane center is then the average value of the left and right lane-lines positions: <code> <i> P = [P(l)+P(r)]/2 </i> </code> (`lane.py` code lines 292-283).
+The vehicle positions with respect to lane center are then the average values of the left and right lines positions: <code> <i> P = [P(l)+P(r)]/2 </i> </code> (`lane.py` code lines 292-283).
 
 ####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 Here is an example of my result on a test image (the code cell number 17 of the IPython notebook).
@@ -133,21 +133,21 @@ Here's a [link to my video file](./project_video.mp4)
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-I encountered couple of challenges in the project. Here are the most important three:  
+I encountered couple of challenges in the project. Here are the three most important ones:
 
-1. Generation of binary lane-line image. I used a try and error approach to test methods to create thresholded binary image. Although, the resulting lane-line detection works well, the whole process was somewhat time consuming. An automated optimization process would allow for a more exhaustive search.
+1. Generation of binary lane-line images: I used a try and error approach to test methods to create thresholded binary image. Although, the resulting lane-line detection works well, the whole process was somewhat time consuming. An automated optimization process would allow for a more exhaustive search.
 
-2. Identification of lane-line pixels in the binary image. For some images my algorithm was picking up a road edge rather than a lane-line. 
-I solved this issues by masking left and right sides of images.  A better approach would be to identify all the lanes and then pick the lines that are left and right of car.
-In that we would keep the information about all the lanes. 
+2. Identification of lane-line pixels in binary images. For some images my algorithm was picking up a road edge rather than a lane-line. 
+I solved this issues by masking left and right sides of images.  A better approach would be to identify all the lines and then pick the lines that are left and right of the car.
+In that we would keep information about all the lanes. 
 
-3. Stability of lane detection. To improve stability of lane detection I used a running average over the last 10 image frames. In situations where the binary image had lot of noise or simply line pixels were not present, the resulting fit parameters were wrong and skewed the average. To solve this issue I update the average only when the fit parameters are not unreasonably different from the current average.
+3. Stability of lane detection. To improve stability of lane detection I used a running average over the last 10 image frames. In situations where binary images had lot of noise or simply line pixels were not present, resulting fit parameters were wrong and skewed the average. To solve this issue I update the average only when fit parameters were not unreasonably different from the current average parameters.
 
-Here are a few potential issues with the implemented line detection:
+Here are a few potential issues with the implemented line detection algorithm:
 
 1. The current pipeline was tested only on one type of road conditions.  
-It is possible that the pipeline will fail under rainy, dark or other conditions.  While using saturation channel which be more illumination independent should improve generalization, more  testing and a more systematic optimization approach to build a binary image could help. 
+It is possible that the pipeline will fail under rainy, dark or other type of road conditions.  While using saturation channel which is more illumination independent should improve generalization, more  testing and a more systematic optimization approach to build a binary image could help. 
 
-2. Lane detection may not work properly when lines split or merge e.g. cross-sections,  acceleration or deceleration lanes etc. Here identification of multiple lines and sanity checks based on known ranges of lane parameters could help.
+2. Lane detection may not work properly when lines split or merge e.g. at cross-sections,  acceleration or deceleration lanes etc. Identification of multiple lines and sanity checks based on known ranges of lane parameters could help here.
 
-3. Lane changing may also confuse the algorithm.
+3. Algorithm may get confused during lane changing.
