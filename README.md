@@ -93,32 +93,26 @@ Code cells 13 thought 16 of the IPython notebook illustrate the final results.
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I implemented this step in function called `calcualte_curvature_and_position_`  (lines 135 through 160 in `lane.py`). Both curvature and car position with respect to center are calculated in meter space.
+I implemented this step in function called `calcualte_curvature_and_position_`  (lines 135 through 160 in `lane.py`). Both curvature and vehicle position calculated in the meter space.
 
 To calculate line curvature use the following equation: 
 <code>
 <i>
-r = [1+(2Ay + B)<sup>2</sup>]<sup>3/2</sup> / |2A|
+r(l) = [1+(2A(l)y + B(l))<sup>2</sup>]<sup>3/2</sup> / |2A(l)|
 </i>
 </code>
-where <code><i>A, B, C</i></code> are parameters of the 2nd oder polynomial fit and <code><i>y</i><code> represents the bottom of the image.
+where <code><i>A, B, C</i></code> are parameters of the 2nd oder polynomial fit and <code><i>y</i></code> represents the bottom of the image.
+The lane curvature is then the average value of the left and right lane-lines curvatures: <code> <i> r = [r(l)+r(r)]/2 </i> </code> (`lane.py` code lines 289-280).
 
+To calculate the vehicle position I first calculate position of left and right lane at the bottom of the image with respect to image center (`M`):
 <code>
 <i>
-p = A*y<sup>2</sup> + By + C - L<sub>x</sub>/2
+p(l) = A(l)*y<sup>2</sup> + B(l)y + C(l) - M
 </i>
 </code>
-
-```
-    def calcualte_curvature_and_position(self, coord, imsize):
-        ...
-```
-$$
-a = b C 
-$$
+The vehicle position with respect to lane center is then the average value of the left and right lane-lines positions: <code> <i> p = [p(l)+p(r)]/2 </i> </code> (`lane.py` code lines 292-283).
 
 ####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
-lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  
 Here is an example of my result on a test image (the code cell number 17 of the IPython notebook).
 
 ![alt text][image8]
